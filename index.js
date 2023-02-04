@@ -80,7 +80,7 @@ const totalAmountRaised = GAMES_JSON.reduce((acc, game) => {
 }, 0);
 
 // set inner HTML using template literal
-raisedCard.innerHTML = `${totalAmountRaised.toLocaleString('en-US')}`;
+raisedCard.innerHTML = `$${totalAmountRaised.toLocaleString('en-US')}`;
 
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
@@ -162,7 +162,7 @@ function checkMultiple(n){
 }
 
 // create a string that explains the number of unfunded games using the ternary operator
-const displayStr = `A total of ${totalAmountRaised.toLocaleString('en-US')} has been raised for ${numGames} games.\
+const displayStr = `A total of $${totalAmountRaised.toLocaleString('en-US')} has been raised for ${numGames} games.\
                  Currently, ${numUnfundedGames} ${checkMultiple(numUnfundedGames) ? "games reamin" : "game remains" }\
                  unfunded. We need your help to fund these amazing games!`;
 
@@ -185,7 +185,17 @@ const sortedGames =  GAMES_JSON.sort( (item1, item2) => {
 });
 
 // use destructuring and the spread operator to grab the first and second games
+const [highestFundedGame, secondHighestFundedGame, ...others] = sortedGames;
+
+const highestFundedGameName = highestFundedGame.name;
+const secondHighestFundedGameName = secondHighestFundedGame.name;
 
 // create a new element to hold the name of the top pledge game, then append it to the correct element
+const winnerNameElem = document.createElement('p');
+winnerNameElem.innerText = highestFundedGameName;
+firstGameContainer.appendChild(winnerNameElem);
 
 // do the same for the runner up item
+const runnerNameElem = document.createElement('p');
+runnerNameElem.innerText = secondHighestFundedGameName;
+secondGameContainer.appendChild(runnerNameElem);
